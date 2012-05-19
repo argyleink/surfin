@@ -20,7 +20,10 @@ socket.on('imagesubmitted', function (player) {
 });
 
 socket.on('imagesuccess', function (player) {
-    console.log(player.username + ' uploaded an image successfully');
+    console.log(player);
+    if($('#playerSubmits div[player-id="'+player.id+'"]').length <= 0){
+        $('#playerSubmitsTmpl').tmpl(player).appendTo('#playerSubmits');
+    }
 });
 
 $(function(){

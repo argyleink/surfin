@@ -98,7 +98,25 @@ body {
     font-weight:bold;    
 }
 
-
+#playerSubmits{
+    border: 1px solid #666;
+    padding:10px;
+}
+#playerSubmits > div{
+    width: 200px;
+    height: 250px;
+    overflow:hidden;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-bottom:10px;
+    text-align: center;
+    background-color: #eee;
+}
+#playerSubmits > div img{
+    width: 180px;
+    
+}
 
 
 

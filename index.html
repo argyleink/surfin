@@ -44,7 +44,7 @@
             <h2>Players</h2>
             <ul id="players"></ul>
         </div>
-
+        <div id="playerSubmits"></div>
     </div>
 
 <footer>
@@ -53,6 +53,13 @@
     
 <script id="playerListTmpl" type="text/x-jquery-tmpl"> 
     <li {{if hotseat}}hotseat{{/if}} class='player' player-id="${id}">${username}: ${score}</li>
+</script>
+
+<script id="playerSubmitsTmpl" type="text/x-jquery-tmpl"> 
+    <div class='player' player-id="${id}">
+        <h2>${username}</h2>
+        <img src='${image}' />
+    </div>
 </script>
 
 <script id="imageSearchTmpl" type="text/x-jquery-tmpl"> 
@@ -66,7 +73,7 @@
         });
         
         $('#searchResults > div').live('click',function(){ 
-            socket.emit('playerImage', socket.socket.sessionid) ;
+            socket.emit('playerImage', socket.socket.sessionid, $('img',this).attr('src'));
         });
     });
     function searchComplete(searcher){
