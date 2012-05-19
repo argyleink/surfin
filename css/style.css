@@ -126,12 +126,6 @@ header h1{
 #playerSubmits > div img{
     width: 180px;
 }
-.gameword:before {
-    content:"The game word is:  ";
-    position:relative;
-    font-weight:300;
-    color:#999;
-}
 
 
 
