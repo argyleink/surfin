@@ -27,7 +27,7 @@ socket.on('imagesuccess', function (player) {
 });
 
 socket.on('setword', function (word) {
-    $('#game-word').html(word);
+    $('#game-word').html("<span style='font-weight: normal'>Word to search for:</span> " + word);
 });
 
 function scored() {

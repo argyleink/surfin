@@ -76,8 +76,11 @@ td { vertical-align: top; }
 body {
     font-family: 'Quicksand', sans-serif;   
     padding: 40px;
+    padding-right: 300px;
 }
-
+header h1{
+    color: orange;    
+}
 #searchHead #searchResults > div{
     width:200px;
     display:inline-block;
@@ -90,6 +93,7 @@ body {
 #searchHead input{
     width: 300px;
     padding: 5px;
+    margin-bottom: 10px;
 }
 .players {
     position:absolute;
