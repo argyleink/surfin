@@ -109,31 +109,6 @@ header h1{
 .gameword {
     font-weight:700;    
 }
-#playerSubmits > div{
-    width: 200px;
-    height: 250px;
-    overflow:hidden;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 10px;
-    margin-bottom:10px;
-    text-align: center;
-    background-color: #eee;
-}
-#playerSubmits > div.chosen{
-    border: 4px solid orange;
-    }
-#playerSubmits > div img{
-    width: 180px;
-}
-.gameword:before {
-    content:"The game word is:  ";
-    position:relative;
-    font-weight:300;
-    color:#999;
-}
-
-
 
 
 
