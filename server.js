@@ -79,6 +79,7 @@ io.sockets.on('connection', function (socket) {
         // first player gets hotseat
         if(players.length == 0) {
             game.hotseat = player.id;
+            socket.emit('sethotseat', player.id);
             player.hotseat = true;
         }
         

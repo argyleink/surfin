@@ -121,6 +121,9 @@ header h1{
     text-align: center;
     background-color: #eee;
 }
+#playerSubmits > div.chosen{
+    border: 4px solid orange;
+    }
 #playerSubmits > div img{
     width: 180px;
     

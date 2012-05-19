@@ -79,7 +79,10 @@
             $('#searchResults').empty();
         });
         $('#playerSubmits > div').live('click',function(){
-                
+            if($('body[class="hotseat"]').length > 0){
+                $(this).addClass('chosen');
+                socket.emit('playerScored',$(this).attr('player-id'));
+            }
         });
     });
     function searchComplete(searcher){

@@ -11,6 +11,10 @@ socket.on('updateusers', function(data) {
     });
 });
 
+socket.on('sethotseat', function (id) {
+    $('body').addClass('hotseat');
+});
+
 socket.on('scoreupdated', function (player) {
     $('li[player-id="'+player.id+'"]').html(player.username + ": "+ player.score);
 });
