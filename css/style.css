@@ -11,8 +11,8 @@ html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 10
 html, button, input, select, textarea { font-family: sans-serif; color: #222; }
 body { margin: 0; font-size: 1em; line-height: 1.4; }
 
-::-moz-selection { background: #FF6600; color: #fff; text-shadow: none; }
-::selection { background: #FF6600; color: #fff; text-shadow: none; }
+::-moz-selection { background: orange; color: #fff; text-shadow: none; }
+::selection { background: orange; color: #fff; text-shadow: none; }
 
 a { color: #00e; }
 a:visited { color: #551a8b; }
@@ -106,25 +106,17 @@ header h1{
     font-weight:bold;    
 }
 
-#playerSubmits{
-    border: 1px solid #666;
-    padding:10px;
+.gameword {
+    font-weight:700;    
 }
-#playerSubmits > div{
-    width: 200px;
-    height: 250px;
-    overflow:hidden;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 10px;
-    margin-bottom:10px;
-    text-align: center;
-    background-color: #eee;
+.gameword:before {
+    content:"The game word is:  ";
+    position:relative;
+    font-weight:300;
+    color:#999;
 }
-#playerSubmits > div img{
-    width: 180px;
-    
-}
+
+
 
 
 
