@@ -3,17 +3,14 @@ var http = require('http'),
     path = require('path');
 
 // CREATE SERVER //
-http.createServer(function(request, response) {
+var app = http.createServer(function(request, response) {
 
-    if (request.headers['content-type'] == 'text/json') {
-        serveData(request, response);
-    }
-    else {
-        serveStaticFile(request, response);
-    }
+    serveStaticFile(request, response);
 
 }).listen(process.env.PORT, "0.0.0.0" || 8001);
 console.log('server == :)');
+
+var io = require('socket.io').listen(app);
 
 // FILE SERVER //
 var serveStaticFile = function(request, response) {
@@ -57,19 +54,33 @@ var serveStaticFile = function(request, response) {
         });
     };
 
-// SERVICES //
-var serveData = function(req, res) {
-    console.log('data request: ' + req.url);
-
-    if (req.url == '/nerd-list') {
-        nerds.find({}).sort({
-            name: 1
-        }).toArray(function(err, items) {
-            if (err) throw err;
-
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(JSON.stringify(items));
-        });
-    }
-
-};
+var players = [];
+io.sockets.on('connection', function (socket) {
+    
+    socket.on('adduser', function(username){
+        socket.username = username;
+        socket.username.score = 0;
+        
+        var player = {};
+        player.id = socket.id;
+        player.username = username;
+        player.score = 0;
+        players.push(player);
+        
+        socket.emit('updatechat', 'SERVER', 'you have connected');
+        socket.broadcast.emit('updatechat', 'SERVER', username + ' has connected');
+        io.sockets.emit('updateusers', players);
+    });
+    
+    socket.on('playerScored', function (playerid) {
+        var match;
+        for (var player in players) {
+            if(players[player].id == playerid) {
+                players[player].score++;  
+                match = players[player];
+            }
+        }
+        io.sockets.emit('scoreupdated', match);
+    });
+    
+});
