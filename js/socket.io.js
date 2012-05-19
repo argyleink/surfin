@@ -7,7 +7,10 @@ socket.on('connect', function(){
 socket.on('updateusers', function(data) {
     $('#players').empty();
     $.each(data, function() {
-        $('#players').append('<li player-id="'+ this.id +'">' + this.username + ': '+ this.score +'</li>'); 
+        if(this.hotseat) 
+            $('#players').append('<li hotseat player-id="'+ this.id +'">' + this.username + ': '+ this.score +'</li>');
+        else 
+            $('#players').append('<li player-id="'+ this.id +'">' + this.username + ': '+ this.score +'</li>'); 
     });
 });
 

@@ -73,6 +73,9 @@ td { vertical-align: top; }
 /* ===== Primary Styles ========================================================
    Author:
    ========================================================================== */
+body {
+    font-family: 'Quicksand', sans-serif;    
+}
 
 #searchHead #searchResults > div{
     width:200px;
@@ -84,7 +87,16 @@ td { vertical-align: top; }
     width:100%
 }
 
+.players {
+    position:absolute;
+    top:0; right:0;
+    padding:0 20px;
+    box-shadow:0 0 3px rgba(0,0,0,0.5);
+}
 
+[hotseat] {
+    font-weight:bold;    
+}
 
 
 

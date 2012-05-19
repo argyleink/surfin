@@ -76,7 +76,8 @@ io.sockets.on('connection', function (socket) {
         player.username = username;
         player.score = 0;
         
-        if(players.length <= 0) {
+        // first player gets hotseat
+        if(players.length == 0) {
             game.hotseat = player.id;
             player.hotseat = true;
         }
