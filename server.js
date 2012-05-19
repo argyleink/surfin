@@ -4,7 +4,7 @@ var http = require('http'),
     couchapp = require('couchapp');
 
 // Database Connection //
-// var db = couchapp sync server.js https://argyleink.cloudant.com/surfin/;
+//couchapp sync server.js https://argyleink.cloudant.com/surfin/;
 
 // CREATE SERVER //
 http.createServer(function(request, response) {
