@@ -30,14 +30,14 @@
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
+    
+
     <header>
         <h1>Oranges to Oranges</h1>
     </header>
-    
     <h2 id="game-word"></h2>
-    
     <div id="searchHead" role="search">
-        <input id="searchInput" type="text" />
+        <input id="searchInput" type="text" placeholder="Search for an image to match the word" />
         <div id="searchResults"></div>
     </div>
     <div id="main" role="main">
@@ -76,6 +76,10 @@
         
         $('#searchResults > div').live('click',function(){ 
             socket.emit('playerImage', socket.socket.sessionid, $('img',this).attr('src'));
+            $('#searchResults').empty();
+        });
+        $('#playerSubmits > div').live('click',function(){
+                
         });
     });
     function searchComplete(searcher){

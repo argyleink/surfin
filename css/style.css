@@ -74,7 +74,8 @@ td { vertical-align: top; }
    Author:
    ========================================================================== */
 body {
-    font-family: 'Quicksand', sans-serif;    
+    font-family: 'Quicksand', sans-serif;   
+    padding: 40px;
 }
 
 #searchHead #searchResults > div{
@@ -86,7 +87,10 @@ body {
 #searchHead #searchResults > div img{
     width:100%
 }
-
+#searchHead input{
+    width: 300px;
+    padding: 5px;
+}
 .players {
     position:absolute;
     top:0; right:0;
