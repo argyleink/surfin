@@ -7,7 +7,10 @@ socket.on('connect', function(){
 socket.on('updateusers', function(data) {
     $('#players').empty();
     $.each(data, function() {
-        $('#playerListTmpl').tmpl(this).appendTo('#players');
+        if(this.hotseat) 
+            $('#players').append('<li hotseat player-id="'+ this.id +'">' + this.username + ': '+ this.score +'</li>');
+        else 
+            $('#players').append('<li player-id="'+ this.id +'">' + this.username + ': '+ this.score +'</li>'); 
     });
 });
 
@@ -16,7 +19,7 @@ socket.on('scoreupdated', function (player) {
 });
 
 socket.on('imagesubmitted', function (player) {
-    setPlayerImage(player);
+    $('img[player-id="'+player.id+'"]').attr('src', player.image);
 });
 
 socket.on('imagesuccess', function (player) {
@@ -26,13 +29,8 @@ socket.on('imagesuccess', function (player) {
     }
 });
 
-$(function(){
-    $('#datasend').click( function() {
-        var message = $('#data').val();
-        $('#data').val('');
-        // tell server to execute 'sendchat' and send along one parameter
-        socket.emit('sendchat', message);
-    });
+socket.on('setword', function (word) {
+    $('#game-word').html(word);
 });
 
 function scored() {

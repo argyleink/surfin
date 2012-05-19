@@ -57,15 +57,15 @@ var app = http.createServer(function(request, response) {
 };
 
 function newGame() {
-    game.word = "Wrong";
+    game.word = words[randomFromTo(0, words.length)];
     game.hotseat = "";
-    players = [];   
+    players = []; 
 }
-newGame();
 
 io.sockets.on('connection', function (socket) {
     
     socket.on('newgame', newGame);
+    io.sockets.emit('setword', game.word);
     
     socket.on('adduser', function(username){
         socket.username = username;
@@ -112,3 +112,32 @@ function findPlayer(playerid) {
         }
     }   
 }
+
+var words = [
+    "nasty",
+    "raddical", 
+    "suprising", 
+    "scary", 
+    "loud", 
+    "quiet", 
+    "peaceful", 
+    "gnarly", 
+    "broken", 
+    "enraging", 
+    "satisfying", 
+    "electric", 
+    "colorful", 
+    "organized", 
+    "loser", 
+    "hero", 
+    "dork", 
+    "gangster", 
+    "hipster", 
+    "cupcake"
+]
+
+function randomFromTo(from, to){
+    return Math.floor(Math.random() * (to - from + 1) + from);
+}
+
+newGame();
