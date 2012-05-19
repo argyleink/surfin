@@ -20,23 +20,58 @@
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
-<header>
-<h1>Oranges to Oranges</h1>
-</header>
-<div role="main">
-    <h2>Players</h2>
-    <ul id="players">
-        
-    </ul>
-</div>
+    <header>
+        <h1>Oranges to Oranges</h1>
+    </header>
+    
+    <div id="searchHead" role="search">
+        <input id="searchInput" type="text" />
+        <div id="searchResults"></div>
+    </div>
+    <div id="main" role="main">
+        <h2>Players</h2>
+        <ul id="players"></ul>
+    </div>
+
 <footer>
 
 </footer>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("search", "1");
+</script>
+<script type="text/javascript" src="js/libs/jquery-1.7.2.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-    <script src="js/socket.io.js"></script>
+<script src="js/socket.io.js"></script>
 <script src="js/script.js"></script>
+<script src="js/libs/jquery.tmpl.min.js"></script>
+
+<script id="imageSearchTmpl" type="text/x-jquery-tmpl"> 
+    <div><img src="${url}" /></div>
+</script>
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#searchInput').change(function(){
+            doSearch($(this).val());    
+        });
+    });
+    function searchComplete(searcher){
+        if (searcher.results && searcher.results.length > 0) {
+            var results = searcher.results;
+            $('#searchResults').empty()
+            $.each(results,function(k,v){
+               $('#imageSearchTmpl').tmpl(this).appendTo('#searchResults');
+            });
+        }
+    }
+    function doSearch(query){
+        var imageSearch = new google.search.ImageSearch();
+        imageSearch.setSearchCompleteCallback(this, searchComplete, [imageSearch]);
+        imageSearch.execute(query);
+    }
+</script>
+
 </body>
 </html>

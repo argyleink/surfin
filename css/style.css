@@ -74,7 +74,15 @@ td { vertical-align: top; }
    Author:
    ========================================================================== */
 
+#searchHead #searchResults > div{
+    width:200px;
+    display:inline-block;
+    vertical-align:top;
+}
 
+#searchHead #searchResults > div img{
+    width:100%
+}
 
 
 
