@@ -1,9 +1,10 @@
 var http = require('http'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    couchapp = require('couchapp');
 
 // Database Connection //
-var db = "";
+// var db = couchapp sync server.js https://argyleink.cloudant.com/surfin/;
 
 // CREATE SERVER //
 http.createServer(function(request, response) {
@@ -17,7 +18,7 @@ http.createServer(function(request, response) {
 
 
 }).listen(process.env.PORT, "0.0.0.0" || 8001);
-console.log('server is =)');
+console.log('server == :)');
 
 // FILE SERVER //
 var serveStaticFile = function(request, response) {
