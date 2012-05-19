@@ -1,19 +1,21 @@
 var http = require('http'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    game = {},
+    players = [];
 
 // CREATE SERVER //
 var app = http.createServer(function(request, response) {
 
     serveStaticFile(request, response);
 
-}).listen(process.env.PORT, "0.0.0.0" || 8001);
-console.log('server == :)');
-
-var io = require('socket.io').listen(app);
-
-// FILE SERVER //
-var serveStaticFile = function(request, response) {
+    }).listen(process.env.PORT, "0.0.0.0" || 8001);
+    console.log('server == :)');
+    
+    var io = require('socket.io').listen(app);
+    
+    // FILE SERVER //
+    var serveStaticFile = function(request, response) {
         var filePath = '.' + request.url;
         if (filePath == './') filePath = './index.html';
 
@@ -52,10 +54,18 @@ var serveStaticFile = function(request, response) {
                 response.end();
             }
         });
-    };
+};
 
-var players = [];
+function newGame() {
+    game.word = "Wrong";
+    game.hotseat = "";
+    players = [];   
+}
+newGame();
+
 io.sockets.on('connection', function (socket) {
+    
+    socket.on('newgame', newGame);
     
     socket.on('adduser', function(username){
         socket.username = username;
@@ -65,22 +75,36 @@ io.sockets.on('connection', function (socket) {
         player.id = socket.id;
         player.username = username;
         player.score = 0;
+        
+        if(players.length <= 0) game.hotseat = player.id;
+        
         players.push(player);
         
-        socket.emit('updatechat', 'SERVER', 'you have connected');
-        socket.broadcast.emit('updatechat', 'SERVER', username + ' has connected');
+        //socket.broadcast.emit('updatechat', 'SERVER', username + ' has connected');
         io.sockets.emit('updateusers', players);
     });
     
     socket.on('playerScored', function (playerid) {
-        var match;
-        for (var player in players) {
-            if(players[player].id == playerid) {
-                players[player].score++;  
-                match = players[player];
-            }
-        }
-        io.sockets.emit('scoreupdated', match);
+        var player = findPlayer(playerid);
+        player.score++;
+        
+        io.sockets.emit('scoreupdated', player);
+    });
+    
+    socket.on('playerImage', function (playerid, src) {
+        var player = findPlayer(playerid);
+        player.image = src;
+        
+        io.sockets.emit('imagesubmitted', player);
+        socket.emit('imagesuccess', player);
     });
     
 });
+
+function findPlayer(playerid) {
+    for (var player in players) {
+        if(players[player].id == playerid) {
+            return players[player];
+        }
+    }   
+}
