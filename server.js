@@ -1,11 +1,11 @@
 var http = require('http'),
     fs = require('fs'),
-    path = require('path');
-
+    path = require('path'),
+    request = require('request');
 // CREATE SERVER //
 http.createServer(function(request, response) {
 
-    if (request.headers['content-type'] == 'text/json') {
+    if (request.headers['content-type'] == 'application/json') {
         serveData(request, response);
     }
     else {
@@ -71,5 +71,15 @@ var serveData = function(req, res) {
             res.end(JSON.stringify(items));
         });
     }
-
+    if (req.url.indexOf('/api') >= 0) {
+        var thisQuery = req.url.split('/').splice(-1,1).toString();
+        if(thisQuery !== 'api'){
+            request('http://pipes.yahoo.com/pipes/pipe.run?GameName=' + thisQuery + '&_id=10e437fdcc98acd69f96458995a8a1a2&_render=json', function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(body));
+                }
+            });    
+        }
+    }
 };
